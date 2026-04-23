@@ -1,8 +1,9 @@
 /*
-=================================================
 Proyecto: Base de Datos Biblioteca
-Día 1: Tablas de catálogo
-Autor: Alan Humberto Ortega Aguayo
+Autor: Alan Ortega
+
+=================================================
+--Tablas de catálogo
 =================================================
 */
 
@@ -23,3 +24,25 @@ CREATE TABLE genero (
     UNIQUE (nombre)
 ) ENGINE=InnoDB;
 
+-- =================================================
+-- Autores y libros
+-- =================================================
+
+-- Tabla autor
+-- Almacena la información de los autores
+CREATE TABLE autor (
+    id_autor INT NOT NULL AUTO_INCREMENT,   -- Clave primaria
+    nombres VARCHAR(100) NOT NULL,           -- Nombres del autor
+    apellido_paterno VARCHAR(60) NOT NULL,   -- Apellido principal
+    PRIMARY KEY (id_autor)
+) ENGINE=InnoDB;
+
+-- Tabla libro
+-- Representa cada libro disponible en la biblioteca
+CREATE TABLE libro (
+    id_libro INT NOT NULL AUTO_INCREMENT,    -- Clave primaria
+    titulo VARCHAR(200) NOT NULL,             -- Título del libro
+    id_genero SMALLINT,                       -- Género del libro
+    PRIMARY KEY (id_libro),
+    FOREIGN KEY (id_genero) REFERENCES genero(id_genero)
+) ENGINE=InnoDB;
