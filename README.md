@@ -7,7 +7,7 @@ El desarrollo fue documentado paso a paso utilizando Git, registrando
 los avances diarios por medio de commits.
 
 ## Archivo principal
-- BibliotecaDb.sql
+- bibliotecaDB.sql
 
 ## Descripción general
 La base de datos permite administrar información relacionada con:
