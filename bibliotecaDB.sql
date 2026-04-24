@@ -92,3 +92,32 @@ CREATE TABLE prestamo_detalle (
     FOREIGN KEY (id_prestamo) REFERENCES prestamo(id_prestamo),
     FOREIGN KEY (id_ejemplar) REFERENCES ejemplar(id_ejemplar)
 ) ENGINE=InnoDB;
+
+-- =================================================
+-- Correcciones, validaciones y buenas prácticas
+-- =================================================
+
+-- Agregar correo electrónico a los usuarios
+ALTER TABLE usuario
+ADD email VARCHAR(120);
+
+-- Evitar correos duplicados
+ALTER TABLE usuario
+ADD CONSTRAINT uq_usuario_email UNIQUE (email);
+
+-- Mejorar el rendimiento en búsquedas por libro
+CREATE INDEX idx_ejemplar_id_libro
+ON ejemplar (id_libro);
+
+-- Evitar duplicar un mismo ejemplar en un préstamo
+ALTER TABLE prestamo_detalle
+ADD CONSTRAINT uq_prestamo_ejemplar UNIQUE (id_prestamo, id_ejemplar);
+
+-- Ajustar integridad referencial de préstamos
+ALTER TABLE prestamo
+DROP FOREIGN KEY prestamo_ibfk_1,
+ADD CONSTRAINT fk_prestamo_usuario
+FOREIGN KEY (id_usuario)
+REFERENCES usuario(id_usuario)
+ON DELETE RESTRICT
+ON UPDATE CASCADE;
